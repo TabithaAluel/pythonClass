@@ -6,13 +6,14 @@ class Bank:
         self.phoneNumber=phoneNumber
         self.balance=0
         self.statement=[]
+        self.loan=0
 
     def show_balance(self):
         return f"Hello {self.name},your balance is {self.balance}."
 
     def deposit(self,amount):
         if(amount<0):
-            return f"You cannot deposit money less than 0"
+            return f"You   cannot deposit money less than 0"
         else:
             self.balance+=amount
             now=datetime.now()
@@ -42,17 +43,47 @@ class Bank:
             self.statement.append(transaction)
 
             return self.show_balance()
-
+        
+    
     def borrow(self,amount):
         self.amount=amount
-        if (amount>0):
-            return f"You can borrow{amount}"
-        else:
-            return f"You cannot borrow another"
-    
+        if amount<0:
+            return f"You are not qualified"    
+        elif self.loan < 0 :
+            return f"You are not qualified"
+        elif amount<0.1 * self.balance:
+            return f"You are qualified"
+        else:   
+            
+            loan=amount*1.05
+            self.loan=loan
+            self.balance+=amount
+            now=datetime.now()
+            transaction1={"amount":amount,"time":now,"narration":"You have withdrawn"}
+            self.statement.append(transaction1)
+            return f"You have borrowed {amount}"
+           
+            
+              
     def repay_loan(self,amount):
         self.amount=amount
-        if(amount>0):
-            return f"Please repay your loan of{amount}"
+        if amount<0:
+            return f"You cannot borrow loan"
+        elif amount<=self.loan:
+            self.loan==amount
+            return f"You have paid your loan"
         else:
-            return f"Your loan has been  paid!"
+            diff=amount-self.loan
+            self.loan=0
+            self.deposit(diff)   
+        
+            now=datetime.now()
+            transaction2={"amount":amount,"time":now,"narration":"You have withdrawn"}
+            self.statement.append(transaction2)
+            return f"Your have paid {amount} and {self.loan} is left"
+
+
+
+  
+         
+
