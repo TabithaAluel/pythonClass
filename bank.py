@@ -12,6 +12,10 @@ class Bank:
         return f"Hello {self.name},your balance is {self.balance}."
 
     def deposit(self,amount):
+        try:
+            10+amount
+        except TypeError:
+            return f'The amount must be in figures'    
         if(amount<0):
             return f"You   cannot deposit money less than 0"
         else:
@@ -34,6 +38,12 @@ class Bank:
 
 
     def withdraw(self,amount):
+        try:
+            12+amount
+        except TypeError:
+            return f'The amount must be in figures' 
+
+
         if(amount>self.balance):
             return f"Your balance is {self.balance}.You cannot withdraw {amount}"
         else:
@@ -46,6 +56,12 @@ class Bank:
         
     
     def borrow(self,amount):
+        try:
+         12+amount
+
+        except TypeError:
+            return f'The amount must be in figures' 
+
         self.amount=amount
         if amount<0:
             return f"You are not qualified"    
@@ -66,6 +82,11 @@ class Bank:
             
               
     def repay_loan(self,amount):
+        try:
+         12+amount
+        except TypeError:
+            return f'The amount must be in figures' 
+
         self.amount=amount
         if amount<0:
             return f"You cannot borrow loan"
@@ -83,6 +104,49 @@ class Bank:
             return f"Your have paid {amount} and {self.loan} is left"
 
 
+
+    def transfer(self,account,amount):
+        try:
+         12+amount
+        except TypeError:
+            return f'The amount must be in figures' 
+          
+        fee=amount*0.05
+        total=amount+fee
+        if amount<0:
+            return f'your balance is {self.balance}'
+        elif total>self.balance:
+            return f'your balance is {self.balance} and you need atleast {total} for the tranfer '    
+        else:
+            account.deposit(amount)
+            self.balance=total
+            return f'The amount has been transferred'
+
+class mobile_money(Bank):
+    def __init__(self, name, phoneNumber,service_provider):
+        Bank .__init__(name,phoneNumber)
+        service_provider=service_provider
+
+        
+    def buy_airtime(self,amount):
+        try:
+            10+amount
+        except TypeError:
+            return f"The the amount must be figures"
+        if amount<0:
+            return f" {self.name} your amount {amount} is too low"
+        elif self.balance<amount:
+            return f"your {self.balance} is too low you can't buy airtime"
+        else:
+            self.balance-=amount
+            return f"you have bought airtime of {amount}, your new balance is {self.balance}"
+
+          
+
+
+
+
+        
 
   
          
