@@ -1,7 +1,6 @@
 x=[100,110,120,140,150]
-for a in x :
-    a*a in x
-    print(a)
+z=[a*5 for a in x]
+print(z)
 
     n=0
     x=range(1,n) 
